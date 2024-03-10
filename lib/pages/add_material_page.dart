@@ -41,9 +41,9 @@ class _AddMaterialPageState extends State<AddMaterialPage> {
                 ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Informe o ano do título!';
-                  }
+                  //if (value!.isEmpty) {
+                  //  return 'Informe o ano do título!';
+                  //}
                   return null;
                 },
               ),
