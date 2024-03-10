@@ -1,4 +1,6 @@
+import 'package:descartebem/models/pontocoleta.dart';
 import 'package:descartebem/pages/home_controller.dart';
+import 'package:descartebem/pages/ponto_coleta_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,16 +24,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text(
-            'Descarte Bem',
-            style: TextStyle(color: Colors.white),
-          ),
+          child: Text('Descarte Bem'),
         ),
       ),
       body: ListView.separated(
         itemCount: controller.tabela.length,
         itemBuilder: (BuildContext context, int i) {
-          final tabela = controller.tabela;
+          final List<PontoColeta> tabela = controller.tabela;
           return ListTile(
             leading: Image.network(
               tabela[i].logotipo,
@@ -46,6 +45,17 @@ class _HomePageState extends State<HomePage> {
                 for (var material in tabela[i].materiais) Text(material.nome),
               ],
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => PontoColetaPage(
+                    key: Key(tabela[i].nome),
+                    pontoColeta: tabela[i],
+                  ),
+                ),
+              );
+            },
           );
         },
         separatorBuilder: (_, __) => Divider(),

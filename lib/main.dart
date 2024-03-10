@@ -17,6 +17,12 @@ class DescarteBem extends StatelessWidget {
         appBarTheme: AppBarTheme(
           centerTitle: true,
           backgroundColor: Colors.green,
+          titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        tabBarTheme: TabBarTheme(
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.black26,
+          indicatorColor: Colors.white,
         ),
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -1,62 +1,66 @@
-import '../models/material.dart';
+import 'package:descartebem/repositories/ponto_coleta_repository.dart';
+
 import '../models/pontocoleta.dart';
 
 class HomeController {
-  late List<PontoColeta> tabela;
+  late PontoColetaRepository pontoColetaRepository;
+
+  List<PontoColeta> get tabela => pontoColetaRepository.pontoscoleta;
 
   HomeController() {
-    tabela = [
-      PontoColeta(
-        nome: 'FURB',
-        endereco: 'Rua Antônio da Veiga, 100',
-        logotipo:
-            'https://www.furb.br/_upl/files/multimidia/furb_universidade%20de%20Blumenau_policromia.jpg',
-        materiais: [
-          Material(nome: 'Lâmpada'),
-          Material(nome: 'Bateria'),
-          Material(nome: 'Eletrônicos'),
-        ],
-      ),
-      PontoColeta(
-        nome: 'Giassi',
-        endereco: 'Avenida São Paulo, 2500',
-        logotipo: 'https://institucional.giassi.com.br/img/facebook.jpg',
-        materiais: [
-          Material(nome: 'Lâmpada'),
-          Material(nome: 'Bateria'),
-        ],
-      ),
-      PontoColeta(
-        nome: 'Cooper',
-        endereco: 'Rua Benjamin Constant, 2480',
-        logotipo:
-            'https://www.cooper.coop.br/image/13823/550/0/novos-horarios-de-atendimento-da-cooper.jpg',
-        materiais: [
-          Material(nome: 'Lâmpada'),
-        ],
-      ),
-      PontoColeta(
-        nome: 'Angeloni',
-        endereco: 'Rua Humberto de Campos, 19',
-        logotipo:
-            'https://biscoitosgusman.com.br/wp-content/uploads/2021/04/Logo-Angeloni.png',
-        materiais: [
-          Material(nome: 'Lâmpada'),
-          Material(nome: 'Bateria'),
-          Material(nome: 'Eletrônicos'),
-        ],
-      ),
-      PontoColeta(
-        nome: 'Prefeitura Municipal de Blumenau',
-        endereco: 'Avenida Beira Rio, 4032',
-        logotipo:
-            'https://www.blumenau.sc.gov.br/view/media/up/25770b457a11b77d1ac8254e89b3790a.png',
-        materiais: [
-          Material(nome: 'Lâmpada'),
-          Material(nome: 'Bateria'),
-        ],
-      ),
-    ];
+    pontoColetaRepository = PontoColetaRepository();
+    //   tabela = [
+    //     PontoColeta(
+    //       nome: 'FURB',
+    //       endereco: 'Rua Antônio da Veiga, 100',
+    //       logotipo:
+    //           'https://www.furb.br/_upl/files/multimidia/furb_universidade%20de%20Blumenau_policromia.jpg',
+    //       materiais: [
+    //         Material(nome: 'Lâmpada'),
+    //         Material(nome: 'Bateria'),
+    //         Material(nome: 'Eletrônicos'),
+    //       ],
+    //     ),
+    //     PontoColeta(
+    //       nome: 'Giassi',
+    //       endereco: 'Avenida São Paulo, 2500',
+    //       logotipo: 'https://institucional.giassi.com.br/img/facebook.jpg',
+    //       materiais: [
+    //         Material(nome: 'Lâmpada'),
+    //         Material(nome: 'Bateria'),
+    //       ],
+    //     ),
+    //     PontoColeta(
+    //       nome: 'Cooper',
+    //       endereco: 'Rua Benjamin Constant, 2480',
+    //       logotipo:
+    //           'https://www.cooper.coop.br/image/13823/550/0/novos-horarios-de-atendimento-da-cooper.jpg',
+    //       materiais: [
+    //         Material(nome: 'Lâmpada'),
+    //       ],
+    //     ),
+    //     PontoColeta(
+    //       nome: 'Angeloni',
+    //       endereco: 'Rua Humberto de Campos, 19',
+    //       logotipo:
+    //           'https://biscoitosgusman.com.br/wp-content/uploads/2021/04/Logo-Angeloni.png',
+    //       materiais: [
+    //         Material(nome: 'Lâmpada'),
+    //         Material(nome: 'Bateria'),
+    //         Material(nome: 'Eletrônicos'),
+    //       ],
+    //     ),
+    //     PontoColeta(
+    //       nome: 'Prefeitura Municipal de Blumenau',
+    //       endereco: 'Avenida Beira Rio, 4032',
+    //       logotipo:
+    //           'https://www.blumenau.sc.gov.br/view/media/up/25770b457a11b77d1ac8254e89b3790a.png',
+    //       materiais: [
+    //         Material(nome: 'Lâmpada'),
+    //         Material(nome: 'Bateria'),
+    //       ],
+    //     ),
+    //   ];
   }
 }
 
