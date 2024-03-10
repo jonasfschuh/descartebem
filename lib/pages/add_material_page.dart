@@ -37,7 +37,7 @@ class _AddMaterialPageState extends State<AddMaterialPage> {
                 controller: _ano,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Ano',
+                  labelText: 'Quantidade',
                 ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
