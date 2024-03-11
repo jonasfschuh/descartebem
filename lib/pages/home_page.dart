@@ -3,6 +3,7 @@ import 'package:descartebem/pages/home_controller.dart';
 import 'package:descartebem/pages/ponto_coleta_page.dart';
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -55,15 +56,23 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => PontoColetaPage(
-                        key: Key(tabela[i].nome),
-                        pontoColeta: tabela[i],
-                      ),
+                  Get.to(
+                    () => PontoColetaPage(
+                      key: Key(tabela[i].nome),
+                      pontoColeta: tabela[i],
                     ),
                   );
+
+                  //substituido pelo GET
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (_) => PontoColetaPage(
+                  //       key: Key(tabela[i].nome),
+                  //       pontoColeta: tabela[i],
+                  //     ),
+                  //   ),
+                  // );
                 },
               );
             },

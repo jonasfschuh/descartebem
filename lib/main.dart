@@ -1,6 +1,7 @@
 import 'package:descartebem/pages/home_page.dart';
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class DescarteBem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Descarte bem',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

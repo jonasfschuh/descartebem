@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../models/material_.dart';
@@ -32,7 +33,9 @@ class _AddMaterialPageState extends State<AddMaterialPage> {
       ),
     );
 
-    Navigator.pop(context);
+    Get.back();
+    //substitudo pelo get
+    //Navigator.pop(context);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
