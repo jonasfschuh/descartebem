@@ -1,15 +1,20 @@
+import 'dart:collection';
+
 import 'package:descartebem/models/pontocoleta.dart';
+import 'package:flutter/material.dart';
 
 import '../models/material_.dart';
 
-class PontoColetaRepository {
+class PontoColetaRepository extends ChangeNotifier {
   final List<PontoColeta> _pontoscoleta = [];
 
-  get pontoscoleta => _pontoscoleta;
+  UnmodifiableListView<PontoColeta> get pontoscoleta =>
+      UnmodifiableListView(_pontoscoleta);
 
   void addMaterial(
       {required PontoColeta pontocoleta, required Material_ material}) {
     pontocoleta.materiais.add(material);
+    notifyListeners();
   }
 
   PontoColetaRepository() {

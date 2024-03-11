@@ -1,8 +1,16 @@
 import 'package:descartebem/pages/home_page.dart';
+import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(DescarteBem());
+  runApp(
+    // MultiProvider MultiProvider(providers: providers)
+    ChangeNotifierProvider(
+      create: (context) => PontoColetaRepository(),
+      child: DescarteBem(),
+    ),
+  );
 }
 
 class DescarteBem extends StatelessWidget {
