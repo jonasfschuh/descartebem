@@ -17,6 +17,16 @@ class PontoColetaRepository extends ChangeNotifier {
     notifyListeners();
   }
 
+  void editMaterial(
+      {required Material_ material,
+      required String ano,
+      required String nome}) {
+    material.nome = ano;
+    material.nome = nome;
+    //material.ano = ano;
+    notifyListeners();
+  }
+
   PontoColetaRepository() {
     _pontoscoleta.addAll(
       [

@@ -1,11 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:descartebem/models/pontocoleta.dart';
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
+import 'package:descartebem/widget/logotipo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'add_material_page.dart';
+import 'edit_material.page.dart';
 
 // ignore: must_be_immutable
 class PontoColetaPage extends StatefulWidget {
@@ -82,9 +84,12 @@ class _PontoColetaPageState extends State<PontoColetaPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Image.network(widget.pontoColeta.logotipo),
-                ),
+                    padding: EdgeInsets.all(24),
+                    child: Logotipo(
+                        image: widget.pontoColeta.logotipo,
+                        width:
+                            300) //Image.network(widget.pontoColeta.logotipo),
+                    ),
                 Text(widget.pontoColeta.nome),
                 Text(widget.pontoColeta.endereco),
               ],
@@ -115,6 +120,12 @@ class _PontoColetaPageState extends State<PontoColetaPage> {
               return ListTile(
                 leading: Icon(Icons.check_circle_outline),
                 title: Text(pontoColeta.materiais[index].nome),
+                onTap: () {
+                  Get.to(
+                    EditMaterialPage(material: pontoColeta.materiais[index]),
+                    fullscreenDialog: true,
+                  );
+                },
               );
             },
             separatorBuilder: (_, __) => Divider(),
