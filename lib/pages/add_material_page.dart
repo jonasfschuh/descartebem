@@ -1,16 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
+import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/material_.dart';
 import '../models/pontocoleta.dart';
 
 class AddMaterialPage extends StatefulWidget {
   late PontoColeta pontoColeta;
-  late ValueChanged<Material_> onSave;
 
   // ignore: use_super_parameters
-  AddMaterialPage({Key? key, required this.pontoColeta, required this.onSave})
-      : super(key: key);
+  AddMaterialPage({Key? key, required this.pontoColeta}) : super(key: key);
 
   @override
   State<AddMaterialPage> createState() => _AddMaterialPageState();
@@ -20,6 +20,26 @@ class _AddMaterialPageState extends State<AddMaterialPage> {
   final _campeonato = TextEditingController();
   final _ano = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  save() {
+    // o listem está falso por que vai adicionar apenas. Mas se precisasse atualizar alguma outra tela,
+    // deve estar true. Porque esse método save não vai precisar renderizar nada novamente.
+    //Provider.of<PontoColetaRepository>(context, listen: false).addMaterial(
+    Provider.of<PontoColetaRepository>(context, listen: false).addMaterial(
+      pontocoleta: widget.pontoColeta,
+      material: Material_(
+        nome: _campeonato.text,
+      ),
+    );
+
+    Navigator.pop(context);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Salvo com sucesso!'),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +102,7 @@ class _AddMaterialPageState extends State<AddMaterialPage> {
                 ]),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    widget.onSave(Material_(nome: _campeonato.text));
+                    save();
                   }
                 },
               ),

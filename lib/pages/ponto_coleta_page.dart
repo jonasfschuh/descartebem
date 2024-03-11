@@ -1,7 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:descartebem/models/material_.dart';
 import 'package:descartebem/models/pontocoleta.dart';
+import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'add_material_page.dart';
 
@@ -22,27 +23,27 @@ class _PontoColetaPageState extends State<PontoColetaPage> {
       MaterialPageRoute(
         builder: (_) => AddMaterialPage(
           pontoColeta: widget.pontoColeta,
-          onSave: addMaterial,
         ),
       ),
     );
   }
 
-  addMaterial(Material_ material) {
-    setState(
-      () {
-        widget.pontoColeta.materiais.add(material);
-      },
-    );
+  // comentado porque o provider irá tratar de outra forma
+  // addMaterial(Material_ material) {
+  //   setState(
+  //     () {
+  //       widget.pontoColeta.materiais.add(material);
+  //     },
+  //   );
 
-    Navigator.pop(context);
+  //   Navigator.pop(context);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Salvo com sucesso!'),
-      ),
-    );
-  }
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(
+  //       content: Text('Salvo com sucesso!'),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +94,11 @@ class _PontoColetaPageState extends State<PontoColetaPage> {
   }
 
   Widget materiais() {
-    final quantidade = widget.pontoColeta.materiais.length;
+    final pontoColeta = Provider.of<PontoColetaRepository>(context)
+        .pontoscoleta
+        .firstWhere((t) => t.nome == widget.pontoColeta.nome);
+    final quantidade = pontoColeta.materiais.length;
+    //final quantidade = widget.pontoColeta.materiais.length;
 
     return quantidade == 0
         ? Container(
@@ -105,7 +110,7 @@ class _PontoColetaPageState extends State<PontoColetaPage> {
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 leading: Icon(Icons.check_circle_outline),
-                title: Text(widget.pontoColeta.materiais[index].nome),
+                title: Text(pontoColeta.materiais[index].nome),
               );
             },
             separatorBuilder: (_, __) => Divider(),

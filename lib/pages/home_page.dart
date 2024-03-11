@@ -1,7 +1,9 @@
 import 'package:descartebem/models/pontocoleta.dart';
 import 'package:descartebem/pages/home_controller.dart';
 import 'package:descartebem/pages/ponto_coleta_page.dart';
+import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,39 +29,48 @@ class _HomePageState extends State<HomePage> {
           child: Text('Descarte Bem'),
         ),
       ),
-      body: ListView.separated(
-        itemCount: controller.tabela.length,
-        itemBuilder: (BuildContext context, int i) {
-          final List<PontoColeta> tabela = controller.tabela;
-          return ListTile(
-            leading: Image.network(
-              tabela[i].logotipo,
-              height: 60,
-              width: 60,
-              fit: BoxFit.scaleDown,
-            ),
-            title: Text(tabela[i].nome),
-            subtitle: Text(tabela[i].endereco),
-            trailing: Column(
-              children: [
-                for (var material in tabela[i].materiais) Text(material.nome),
-              ],
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => PontoColetaPage(
-                    key: Key(tabela[i].nome),
-                    pontoColeta: tabela[i],
-                  ),
+      // sempre usar o consumer perto da classe que irá usar
+      body: Consumer<PontoColetaRepository>(
+        builder: (context, repositorio, child) {
+          return ListView.separated(
+            itemCount: repositorio.pontoscoleta.length,
+            itemBuilder: (BuildContext context, int i) {
+              final List<PontoColeta> tabela = repositorio.pontoscoleta;
+              return ListTile(
+                leading: Image.network(
+                  tabela[i].logotipo,
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.scaleDown,
                 ),
+                title: Text(tabela[i].nome),
+                subtitle: Text(tabela[i].endereco),
+                trailing: Column(
+                  children: [
+                    for (var material in tabela[i].materiais)
+                      Text(
+                        material.nome,
+                        style: TextStyle(fontSize: 9),
+                      ),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => PontoColetaPage(
+                        key: Key(tabela[i].nome),
+                        pontoColeta: tabela[i],
+                      ),
+                    ),
+                  );
+                },
               );
             },
+            separatorBuilder: (_, __) => Divider(),
+            padding: EdgeInsets.all(10),
           );
         },
-        separatorBuilder: (_, __) => Divider(),
-        padding: EdgeInsets.all(10),
       ),
       //floatingActionButton: ,
       bottomNavigationBar: BottomNavigationBar(
