@@ -2,6 +2,7 @@
 import 'package:descartebem/models/pontocoleta.dart';
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'add_material_page.dart';
@@ -18,14 +19,17 @@ class PontoColetaPage extends StatefulWidget {
 
 class _PontoColetaPageState extends State<PontoColetaPage> {
   materialPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => AddMaterialPage(
-          pontoColeta: widget.pontoColeta,
-        ),
-      ),
-    );
+    Get.to(() => AddMaterialPage(pontoColeta: widget.pontoColeta));
+
+    //substituído pelo GETX
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (_) => AddMaterialPage(
+    //       pontoColeta: widget.pontoColeta,
+    //     ),
+    //   ),
+    // );
   }
 
   // comentado porque o provider irá tratar de outra forma
