@@ -2,6 +2,7 @@ import 'package:descartebem/models/pontocoleta.dart';
 import 'package:descartebem/pages/home_controller.dart';
 import 'package:descartebem/pages/ponto_coleta_page.dart';
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
+import 'package:descartebem/widget/logotipo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -38,12 +39,13 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (BuildContext context, int i) {
               final List<PontoColeta> tabela = repositorio.pontoscoleta;
               return ListTile(
-                leading: Image.network(
-                  tabela[i].logotipo,
-                  height: 60,
-                  width: 60,
-                  fit: BoxFit.scaleDown,
-                ),
+                leading: Logotipo(image: tabela[i].logotipo, width: 60),
+                // Image.network(
+                //   tabela[i].logotipo,
+                //   height: 60,
+                //   width: 60,
+                //   fit: BoxFit.scaleDown,
+                //),
                 title: Text(tabela[i].nome),
                 subtitle: Text(tabela[i].endereco),
                 trailing: Column(

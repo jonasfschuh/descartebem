@@ -36,12 +36,20 @@ class _AddMaterialPageState extends State<AddMaterialPage> {
     Get.back();
     //substitudo pelo get
     //Navigator.pop(context);
+    //get.rawSnackbar() pega nativo da api
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Salvo com sucesso!'),
-      ),
+    Get.snackbar(
+      'Sucesso!',
+      'Material cadastrado!',
+      backgroundColor: Colors.green[50],
+      snackPosition: SnackPosition.BOTTOM,
     );
+    //subbstituido pelo Getsnackbar.
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     content: Text('Salvo com sucesso!'),
+    //   ),
+    // );
   }
 
   @override
