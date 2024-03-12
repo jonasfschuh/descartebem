@@ -2,6 +2,7 @@ import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 
 import '../models/pontocoleta.dart';
 
+// essa classe não é mais utilizada. Deverá ser excluída mais pra frente.
 class HomeController {
   late PontoColetaRepository pontoColetaRepository;
 
