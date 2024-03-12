@@ -6,12 +6,14 @@ import 'package:provider/provider.dart';
 import '../models/material_.dart';
 import '../repositories/ponto_coleta_repository.dart';
 
-// ignore: must_be_immutable
 // Exemplo de tela modal
 class EditMaterialPage extends StatefulWidget {
-  Material_ material;
+  final Material_ material;
 
-  EditMaterialPage({super.key, required this.material});
+  EditMaterialPage({
+    super.key,
+    required this.material,
+  });
 
   @override
   State<EditMaterialPage> createState() => _EditMaterialPageState();

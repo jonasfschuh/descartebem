@@ -1,5 +1,6 @@
+import 'package:descartebem/controllers/theme_controller.dart';
 import 'package:descartebem/models/pontocoleta.dart';
-import 'package:descartebem/pages/home_controller.dart';
+//import 'package:descartebem/pages/home_controller.dart';
 import 'package:descartebem/pages/ponto_coleta_page.dart';
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:descartebem/widget/logotipo.dart';
@@ -13,7 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var controller = HomeController();
+  //var controller = HomeController();
+  var controller = ThemeController.to;
 
   int _selectedIndex = 0;
 
@@ -30,6 +32,23 @@ class _HomePageState extends State<HomePage> {
         title: Center(
           child: Text('Descarte Bem'),
         ),
+        actions: [
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Obx(() => controller.isDark.value
+                      ? Icon(Icons.brightness_7)
+                      : Icon(Icons.brightness_2)),
+                  title: Obx(() =>
+                      controller.isDark.value ? Text('Light') : Text('Dark')),
+                  onTap: () => controller.changeTheme(),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       // sempre usar o consumer perto da classe que irá usar
       body: Consumer<PontoColetaRepository>(

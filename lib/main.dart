@@ -1,3 +1,4 @@
+import 'package:descartebem/controllers/theme_controller.dart';
 import 'package:descartebem/pages/home_page.dart';
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  Get.lazyPut<ThemeController>(() => ThemeController());
+
   runApp(
     // MultiProvider MultiProvider(providers: providers)
     ChangeNotifierProvider(
@@ -19,6 +22,8 @@ class DescarteBem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeController.to.loadThemeMode();
+
     return GetMaterialApp(
       title: 'Descarte bem',
       debugShowCheckedModeBanner: false,
@@ -35,8 +40,24 @@ class DescarteBem extends StatelessWidget {
         ),
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.green[100],
+        ),
       ),
+      themeMode: ThemeMode.system,
       home: HomePage(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        //primarySwatch: Colors.white,
+        //accentColor,
+        //accentIconTheme,
+        dividerColor: Colors.black45,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.deepPurpleAccent[100]),
+        ),
+      ),
     );
   }
 }
