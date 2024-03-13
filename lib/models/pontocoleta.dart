@@ -2,13 +2,15 @@
 import 'material_.dart';
 
 class PontoColeta {
+  late int id;
   String nome;
   String logotipo;
   String endereco;
   List<Material_> materiais;
 
   PontoColeta(
-      {required this.nome,
+      {required this.id,
+      required this.nome,
       required this.endereco,
       required this.logotipo,
       required this.materiais});
