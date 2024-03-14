@@ -1,12 +1,22 @@
 import 'package:descartebem/controllers/theme_controller.dart';
-import 'package:descartebem/pages/home_page.dart';
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
+/**
+ * Tutorial das libs 
+ * https://firebase.google.com/codelabs/firebase-get-to-know-flutter?hl=pt-br#3
+ */
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  Get.lazyPut<ThemeController>(() => ThemeController());
+import 'config.dart';
+import 'widget/checkauth.dart';
+
+void main() async {
+  await initConfigurations();
+  //initializeFirebase();
+
+  //Get.lazyPut<ThemeController>(() => ThemeController());
 
   runApp(
     // MultiProvider MultiProvider(providers: providers)
@@ -16,6 +26,13 @@ void main() {
     ),
   );
 }
+/*
+Future<void> initializeFirebase() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+}
+*/
 
 class DescarteBem extends StatelessWidget {
   const DescarteBem({super.key});
@@ -45,7 +62,6 @@ class DescarteBem extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.system,
-      home: HomePage(),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -58,6 +74,8 @@ class DescarteBem extends StatelessWidget {
               backgroundColor: Colors.deepPurpleAccent[100]),
         ),
       ),
+      //home: HomePage(),
+      home: CheckAuth(),
     );
   }
 }

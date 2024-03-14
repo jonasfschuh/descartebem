@@ -1,5 +1,5 @@
 plugins {
-    id "com.android.application"
+    id "com.android.application"    
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
@@ -49,6 +49,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -60,8 +61,10 @@ android {
     }
 }
 
+dependencies {
+  implementation 'com.android.support:multidex:1.0.3'
+}
+
 flutter {
     source '../..'
 }
-
-dependencies {}

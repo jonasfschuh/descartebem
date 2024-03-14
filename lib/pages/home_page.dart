@@ -3,6 +3,7 @@ import 'package:descartebem/models/pontocoleta.dart';
 //import 'package:descartebem/pages/home_controller.dart';
 import 'package:descartebem/pages/ponto_coleta_page.dart';
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
+import 'package:descartebem/services/auth_service.dart';
 import 'package:descartebem/widget/logotipo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,6 +47,16 @@ class _HomePageState extends State<HomePage> {
                   onTap: () => controller.changeTheme(),
                 ),
               ),
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.exit_to_app),
+                  title: Text('Sair'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    AuthService.to.logout();
+                  },
+                ),
+              )
             ],
           ),
         ],
