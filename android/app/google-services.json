@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "873192080447",
+    "project_id": "descartebem2-cbc2a",
+    "storage_bucket": "descartebem2-cbc2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873192080447:android:349c49a65b7e2b0e80248a",
+        "android_client_info": {
+          "package_name": "com.example.descartebem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDRxuftU4aahGrPI6KCdIARKrU_DPWuZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
