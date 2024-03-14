@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:descartebem/database/db_firestore.dart';
 import 'package:descartebem/models/pontocoleta.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +16,19 @@ class PontoColetaRepository extends ChangeNotifier {
 
   void addMaterial(
       {required PontoColeta pontocoleta, required Material_ material}) async {
-    var db = await DB.get();
-    int id = await db.insert('ponto_coleta_material', {
-      'material': material.nome,
-      'ponto_coleta_id': pontocoleta.id,
-    });
-    material.id = id;
+    // var db = await DB.get();
+    // int id = await db.insert('ponto_coleta_material', {
+    //   'material': material.nome,
+    //   'ponto_coleta_id': pontocoleta.id,
+    // });
+    // material.id = id.toString();
+
+    FirebaseFirestore db = await DBFirestore.get();
+    var docRef = await db
+        .collection('materiais')
+        .add({'nome': material.nome, 'ponto_coleta_id': pontocoleta.id});
+    material.id = docRef.id;
+
     pontocoleta.materiais.add(material);
     notifyListeners();
   }
@@ -28,25 +37,32 @@ class PontoColetaRepository extends ChangeNotifier {
       {required Material_ material,
       required String ano,
       required String nome}) async {
-    var db = await DB.get();
+    // var db = await DB.get();
 
-    await db.update(
-      'ponto_coleta_material',
-      {'material': nome},
-      where: 'id = ?',
-      whereArgs: [material.id],
-    );
+    // await db.update(
+    //   'ponto_coleta_material',
+    //   {'material': nome},
+    //   where: 'id = ?',
+    //   whereArgs: [material.id],
+    // );
 
-    material.nome = ano;
+    // material.nome = ano;
+    // material.nome = nome;
+    // //material.ano = ano;
+
+    FirebaseFirestore db = await DBFirestore.get();
+    await db.collection('materiais').doc(material.id).update({
+      'nome': nome,
+    });
     material.nome = nome;
-    //material.ano = ano;
+
     notifyListeners();
   }
 
   static setupPontosColeta() {
     return [
       PontoColeta(
-        id: 1,
+        id: '1',
         nome: 'FURB',
         endereco: 'Rua Antônio da Veiga, 100',
         logotipo:
@@ -58,7 +74,7 @@ class PontoColetaRepository extends ChangeNotifier {
         ],
       ),
       PontoColeta(
-        id: 2,
+        id: '2',
         nome: 'Giassi',
         endereco: 'Avenida São Paulo, 2500',
         logotipo: 'https://institucional.giassi.com.br/img/facebook.jpg',
@@ -68,7 +84,7 @@ class PontoColetaRepository extends ChangeNotifier {
         ],
       ),
       PontoColeta(
-        id: 3,
+        id: '3',
         nome: 'Cooper',
         endereco: 'Rua Benjamin Constant, 2480',
         logotipo:
@@ -78,7 +94,7 @@ class PontoColetaRepository extends ChangeNotifier {
         ],
       ),
       PontoColeta(
-        id: 4,
+        id: '4',
         nome: 'Angeloni',
         endereco: 'Rua Humberto de Campos, 19',
         logotipo:
@@ -90,7 +106,7 @@ class PontoColetaRepository extends ChangeNotifier {
         ],
       ),
       PontoColeta(
-        id: 5,
+        id: '5',
         nome: 'Prefeitura Municipal de Blumenau',
         endereco: 'Avenida Beira Rio, 4032',
         logotipo:
@@ -115,27 +131,41 @@ class PontoColetaRepository extends ChangeNotifier {
     for (var pontocoleta in pontoscoleta) {
       _pontoscoleta.add(
         PontoColeta(
-            id: pontocoleta['id'],
+            id: pontocoleta['id'].toString(),
             nome: pontocoleta['nome'],
             endereco: pontocoleta['endereco'],
             logotipo: pontocoleta['logotipo'],
-            materiais: await getMateriais(pontocoleta['id'])),
+            materiais: await getMateriais(pontocoleta['id'].toString())),
       );
     }
     notifyListeners();
   }
 
-  getMateriais(pontoColetaId) async {
-    var db = await DB.get();
-    var results = await db.query('ponto_coleta_material',
-        where: 'ponto_coleta_id = ?', whereArgs: [pontoColetaId]);
+  getMateriais(String pontoColetaId) async {
+    // var db = await DB.get();
+    // var results = await db.query('ponto_coleta_material',
+    //     where: 'ponto_coleta_id = ?', whereArgs: [pontoColetaId]);
+    // List<Material_> materiais = [];
+    // for (var material in results) {
+    //   materiais.add(Material_(
+    //     id: material['id'],
+    //     nome: material['material'],
+    //   ));
+    // }
+
+    FirebaseFirestore db = await DBFirestore.get();
+    var snapshot = await db
+        .collection('materiais')
+        .where('ponto_coleta_id', isEqualTo: pontoColetaId)
+        .get();
     List<Material_> materiais = [];
-    for (var material in results) {
+    snapshot.docs.forEach((doc) {
+      final data = doc.data();
       materiais.add(Material_(
-        id: material['id'],
-        nome: material['material'],
+        id: doc.id,
+        nome: data['nome'],
       ));
-    }
+    });
     return materiais;
   }
 }

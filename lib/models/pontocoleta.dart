@@ -2,7 +2,7 @@
 import 'material_.dart';
 
 class PontoColeta {
-  late int id;
+  late String id;
   String nome;
   String logotipo;
   String endereco;
