@@ -2,6 +2,7 @@
 import 'package:descartebem/models/pontocoleta.dart';
 import 'package:descartebem/repositories/ponto_coleta_repository.dart';
 import 'package:descartebem/widget/logotipo.dart';
+import 'package:descartebem/widget/maps.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -95,9 +96,7 @@ class _PontoColetaPageState extends State<PontoColetaPage> {
               ],
             ),
             materiais(),
-            Container(
-              child: Text('mapa'),
-            ),
+            Maps(),
           ])),
     );
   }
